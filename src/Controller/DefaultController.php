@@ -13,11 +13,8 @@ class DefaultController extends AbstractController
      * Page d'Accueil
      * http://localhost:8000/
      */
-    public function index()
+    public function index() :Response
     {
-
-
-
         # On retourne au client une réponse HTTP.
         # return new Response("<h1>Page Accueil</h1>");
         return $this->render('default/index.html.twig');
