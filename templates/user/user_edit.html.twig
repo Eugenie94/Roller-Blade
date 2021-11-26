@@ -1,0 +1,38 @@
+{% extends 'base.html/twig' %}
+
+{% block title %} Roller Blade | Modification profil {% endblock }
+
+{% block css }
+
+    <link rel="stylesheet" href="{{ asset('assets/header_footer.css') }}
+
+{% endblock css }
+
+{% block body %}
+
+<div class="p-3 mx-auto text-center">
+    <h1 class="display-4">Modifier vos informations</h1>
+</div>
+
+<div class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-10 mx-auto">
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.firstname) }}
+                        {{ form_row(form.password) }}
+                        {{ form_row(form.email) }}
+                        {{ form_row(form.address) }}
+                        {{ form_row(form.phone) }}
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>        
+
+
+{% endblock %}
