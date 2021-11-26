@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -15,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-// use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 class UserController extends AbstractController
 {
@@ -35,7 +34,6 @@ class UserController extends AbstractController
      * Formulaire modification profil
      * http://localhost:8000/edit
      * @Route("/edit", name="user_edit", methods={"GET|POST"})
-     * le alias du dessus agira sur la fonction d'apres
      */
     public function edit(Request $request): Response
     {
@@ -45,13 +43,13 @@ class UserController extends AbstractController
         # Création d'un Formulaire de modification
         $form = $this->createFormBuilder($user = $this->getUser())
             ->add('firstname', TextType::class, [
-                'label' => 'Prénom'
+                'label' => ''
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'Nom'
+                'label' => ''
             ])
             ->add('dog_name', TextType::class, [
-                'label' => 'Nom du chien',
+                'label' => '',
             ])
             ->add('address', TextType::class, [
                 'label' => "Adresse"
