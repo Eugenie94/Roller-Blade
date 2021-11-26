@@ -8,11 +8,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
-    #[Route('/default', name: 'default')]
-    public function index(): Response
+   /**
+     * @Route ("/", name="default_index", methods={"GET"})
+     * Page d'Accueil
+     * http://localhost:8000/
+     */
+    public function index()
     {
-        return $this->render('default/index.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
+        # On retourne au client une réponse HTTP.
+        # return new Response("<h1>Page Accueil</h1>");
+        return $this->render('default/index.html.twig');
     }
 }
