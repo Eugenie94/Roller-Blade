@@ -30,7 +30,7 @@ class RegistrationFormType extends AbstractType
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Repeat MDP'],
+                'second_options' => ['label' => 'Répeter votre mot de passe'],
         
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -44,7 +44,7 @@ class RegistrationFormType extends AbstractType
                         'min' => 6,
                         'minMessage' => 'Votre mot de passe doit comporter au minimum {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
-                        'max' => 4096,
+                        'max' => 50,
                     ]),
                 ],
             ])
