@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Roller Blade | Notre gamme {% endblock %}
+
+
+{% block body %}
+
+<div class="p-3 mx-auto text-center">
+    <h1 class="display-4">Nos produits</h1>
+</div>
+    <div class="card mt-4">
+        <div class="row g-0">
+            {% for product in products %}
+
+                <div class="col-md-5 mb">
+                    <img src="{{ asset(' img/' ~ product.image ) }}" class="card-img-top" alt="{{ product.name }}">
+                </div>
+                <div class="col-md-6 mb">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-prix">Tarif Nuit : {{ product.price }} €</p>
+                        <p class="card-text">
+                        </p>
+                        <ul>
+                            <li><i class="fas fa-check checkdoree"></i></li>
+                            <li><i class="fas fa-check checkdoree"></i></li>
+                            <li><i class="fas fa-check checkdoree"></i></li>
+                            <li><i class="fas fa-check checkdoree"></i></li>
+                            <li><i class="fas fa-check checkdoree"></i></li>
+                            <li><i class="fas fa-check checkdoree"></i></li>
+                            <li><i class="fas fa-check checkdoree"></i></li>
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

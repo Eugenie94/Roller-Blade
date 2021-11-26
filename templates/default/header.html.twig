@@ -11,7 +11,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container-fluid fixed-top" style="background-color: #c7acd1;">
+            <div class="container-fluid" style="background-color: #c7acd1;">
               <a class="navbar-brand" href="{{ path('default_index') }}">
                 <img src="{{'/img/logo_roller3.png'}}" style="width:90%; height:90%" alt="">
               </a>
@@ -21,33 +21,39 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Evènement</a>
+                    <a class="nav-link" href="#">Produit</a>
+                  </li>
+                   <li class="nav-item">
+                    <a class="nav-link" href="#">Evenement</a>
                   </li>
                 </ul>
               </div>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Panier</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ path('user_profil') }}">Mon compte</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Inscription</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Connexion</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Gestion</a>
-                  </li>
-                </ul>
-              </div>
+               <div class="navbar-nav ms-auto">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <div style="margin-top:9px;color:#FFF;font-size:20px;display:flex;margin-right:30px;">
+                        Bonjour {{ app.user.name }} {{ app.user.firstname }}
+                    <a class="nav-link profil" style="font-size:25px;color:#FFF;margin-top:-8px;margin-left:10px;" href="{{ path('user_profil') }}">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    </div>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="nav-link button ajouter lien-responsive"" href="">Gestion</a>
+                    {% endif %}
+                    <a class="nav-link button deconnexion lien-responsive"" href="{{ path('app_logout') }}">Déconnexion</a>
+                    {% else %}
+                     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="display:none";>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">Inscription</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">Connexion</a>
+                          </li>
+                        </ul>
+                    </div>
+                      {% endif %}
+                </div>
+             
             </div>
           </nav>
     </header>

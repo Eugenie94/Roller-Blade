@@ -1,0 +1,25 @@
+nav .navbar-nav li a{
+    font-size:20px;
+    color: white !important;
+}
+
+.navbar-light .navbar-nav .nav-link{
+    font-size:20px;
+    color: white !important;
+}
+nav .navbar-nav li a:hover{
+    color: rgb(66, 66, 66) !important;
+}
+
+.navbar-light .navbar-nav .nav-link:hover{
+    color: rgb(66, 66, 66) !important;
+}
+
+.navbar{
+    padding-top:0px !important;
+    padding-bottom:0px !important;
+}
+
+h1{
+    text-align: center;
+}

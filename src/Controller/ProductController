@@ -1,0 +1,127 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Product;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ProductRepository;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
+
+class ProductController extends AbstractController
+{
+    /**
+     * Créer un produit via un Formulaire
+     * @Route ("/create", name="products_create", methods={"GET|POST"})
+     * @param Request $request
+     * @param SluggerInterface $slugger
+     * @return Response
+     */
+    public function create(Request $request, SluggerInterface $slugger): Response
+    {
+
+        # Création d'un nouvel article VIDE
+        $product = new Product();
+
+        # Création d'un Formulaire de Création de produit
+        $form = $this->createFormBuilder($product)
+            ->add('name', TextType::class, [
+                'label' => "Nom du produit"
+            ])
+            ->add('image', FileType::class, [
+                'label' => "Choisissez l'image du produit",
+            ])
+            ->add('price', NumberType::class, [
+                'label' => "Renseigner un prix",
+            ])
+            ->add('size', TextType::class, [
+                'label' => "Renseigner la taille",
+            ])
+            ->add('model', TextType::class, [
+                'label' => "Renseigner le modèle",
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => "Renseignez la description du produit",
+                'attr' => ['class' => 'description']
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => "Publier",
+            ])
+            ->getForm();
+
+        # Permet à Symfony de gérer les données saisies par l'utilisateur
+        $form->handleRequest($request);
+
+        # Si le formulaire est soumis et valide => C'est comme en procédural quand on écrit if Post(empty)
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $image */
+            $image = $form->get('image')->getData();
+
+            if ($image) {
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
+
+                try {
+                    $image->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    $this->addFlash('danger', 'Une erreur est survenue durant le chargement de votre image.');
+                }
+
+                $product->setImage($newFilename);
+
+            } // endif image
+
+
+            # Insertion dans la BDD
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+
+
+            # Notification de confirmation
+            $this->addFlash('success', 'Félicitations ! Votre produit est en ligne.');
+
+
+            # Redirection vers le nouveau produit
+            return $this->redirectToRoute('products_create', [
+                'id' => $product->getId()
+            ]);
+
+        }
+
+        # Passer le formulaire à la vue
+        return $this->render('products/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+      /**
+     * Page product : Affiche les catégories de chambre
+     * http://localhost:8000/product
+     * @Route("/product", name="product", methods={"GET"})
+     */
+    public function product(ProductRepository $productRepository)
+    {
+
+        return $this->render('index.html.twig', [
+            'categories' => $productRepository->findAll()
+        ]);
+
+    }
+
+}

@@ -45,20 +45,11 @@ class UserController extends AbstractController
             ->add('firstname', TextType::class, [
                 'label' => ''
             ])
-            ->add('lastname', TextType::class, [
-                'label' => ''
-            ])
-            ->add('dog_name', TextType::class, [
-                'label' => '',
+            ->add('name', TextType::class, [
+                'label' => 'Nom'
             ])
             ->add('address', TextType::class, [
                 'label' => "Adresse"
-            ])
-            ->add('city', TextType::class, [
-                'label' => "Ville"
-            ])
-            ->add('zipcode', NumberType::class, [
-                'label' => "Code Postal"
             ])
             ->add('email', EmailType::class, [
                 'label' => "E-mail"
@@ -67,7 +58,7 @@ class UserController extends AbstractController
                 'label' => "Mot de passe",
                 'required' => "true"
             ])
-            ->add('telephone', TelType::class, [
+            ->add('phone', TelType::class, [
                 'label' => "Téléphone"
             ])
             ->add('submit', SubmitType::class, [

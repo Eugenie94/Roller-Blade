@@ -1,12 +1,12 @@
-{% extends 'base.html/twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %} Roller Blade | Modification profil {% endblock }
+{% block title %} Roller Blade | Modification profil {% endblock %}
 
-{% block css }
+{% block css %}
 
-    <link rel="stylesheet" href="{{ asset('assets/header_footer.css') }}
+    <link rel="stylesheet" href="{{ asset('assets/header_footer.css') }}"
 
-{% endblock css }
+{% endblock css %}
 
 {% block body %}
 
@@ -18,7 +18,7 @@
     <div class="container">
         <div class="row">
             <div class="col-10 mx-auto">
-                {{ form_start(form) }}
+                {{ form_start(form)}}
                 <div class="row">
                     <div class="col-md-6">
                         {{ form_row(form.name) }}

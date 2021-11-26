@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Roller Blade | Notre gamme {% endblock %}
+
+
+{% block body %}
+
+<div class="p-3 mx-auto text-center">
+    <h1 class="display-4">Nos produits</h1>
+</div>
+    <div class="card mt-4">
+        <div class="row g-0">
+            {% for product in products %}
+
+                <div class="col-md-5 mb">
+                    <img src="{{ asset('uploads/images/' ~ product.image ) }}" class="card-img-top" alt="{{ product.name }}">
+                </div>
+                <div class="col-md-6 mb">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-prix">Tarif Nuit : {{ product.price }} €</p>
+                        <p class="card-text">Ces chambres spacieuses sont baignées de lumière avec leurs grandes fenêtres qui, une fois ouvertes, permettent de profiter d'une brise rafraîchissante, depuis l'un des fauteuils ou dans le confort exceptionnel du lit.
+                        </p>
+                        <ul>
+                            <li><i class="fas fa-check checkdoree"></i>50 m² de surface</li>
+                            <li><i class="fas fa-check checkdoree"></i>Lit King Size</li>
+                            <li><i class="fas fa-check checkdoree"></i>Vue paisible sur la cour intérieure de l’Hôtel</li>
+                            <li><i class="fas fa-check checkdoree"></i>Salle de bain en marbre Statuario</li>
+                            <li><i class="fas fa-check checkdoree"></i>Parquet en chêne teinté</li>
+                            <li><i class="fas fa-check checkdoree"></i>Système de divertissement complet dans la chambre</li>
+                            <li><i class="fas fa-check checkdoree"></i>Produits d’accueil Doggy</li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-1 fond-doree d-flex flex-column text-center">
+
+                    <a href="{{ path('booking_reservation') }}" class="btn btn-primary align-self-center justify-self-center"><i class="fas fa-arrow-right fleche-doree"></i></a>
+
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
