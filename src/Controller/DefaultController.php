@@ -15,9 +15,6 @@ class DefaultController extends AbstractController
      */
     public function index()
     {
-
-
-
         # On retourne au client une réponse HTTP.
         # return new Response("<h1>Page Accueil</h1>");
         return $this->render('default/index.html.twig');

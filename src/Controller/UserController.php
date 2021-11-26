@@ -15,7 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+// use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
@@ -31,14 +31,13 @@ class UserController extends AbstractController
         ]);
     }
 
-    
      /**
      * Formulaire modification profil
      * http://localhost:8000/edit
      * @Route("/edit", name="user_edit", methods={"GET|POST"})
      * le alias du dessus agira sur la fonction d'apres
      */
-    public function edit(Request $request, UserPasswordEncoderInterface $encoder): Response
+    public function edit(Request $request): Response
     {
 
         $user = $this->getUser();
@@ -84,12 +83,12 @@ class UserController extends AbstractController
         # Si le formulaire est soumis et valide => C'est comme en procédural quand on écrit if Post(empty) etc etc
         if ($form->isSubmitted() && $form->isValid()) {
 
-            # Encodage du mot de passe
-            $user = $this->getUser()->setPassword(
-                $encoder->encodePassword(
-                    $user, $user->getPassword()
-                )
-            );
+            // # Encodage du mot de passe
+            // $user = $this->getUser()->setPassword(
+            //     $encoder->encodePassword(
+            //         $user, $user->getPassword()
+            //     )
+            // );
 
             # Insertion dans la BDD
             $em = $this->getDoctrine()->getManager();
